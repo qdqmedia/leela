@@ -1,0 +1,11 @@
+hooks:
+  build:
+    - sudo pip3 install --extra-index-url http://pypi.qdqmedia.com:8888/simple -r requirements/custom.txt
+    - python3 manage.py migrate
+
+# healthcheck:
+#   path: /api/healthcheck/
+#   method: GET
+#   status: 200
+#   match: .*up and running.*
+#   allowed_failures: 0

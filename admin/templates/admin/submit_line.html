@@ -1,0 +1,34 @@
+{% load i18n admin_urls %}
+
+<div class="submit-row">
+  {% if show_save %}<input type="submit" value="{% trans 'Save' %}" class="default" name="_save" />{% endif %}
+  {% if show_delete_link %}
+    {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
+    <p class="deletelink-box"><a href="{% add_preserved_filters delete_url %}" class="deletelink">{% trans "Delete" %}</a></p>
+  {% endif %}
+  {% if show_save_as_new %}<input type="submit" value="{% trans 'Save as new' %}" name="_saveasnew" />{% endif %}
+  {% if show_save_and_add_another %}<input type="submit" value="{% trans 'Save and add another' %}" name="_addanother" />{% endif %}
+  {% if show_save_and_continue %}<input type="submit" value="{% trans 'Save and continue editing' %}" name="_continue" />{% endif %}
+</div>
+
+{# We already have a valid instance #}
+{% if original.model_name == 'EmailKind' or original.model_name == 'EmailEntry' and show_delete_link %}
+  <div class="submit-row">
+    {% if original.model_name == 'EmailKind' %}
+    <span>Remember to save the changes before testing</span>
+    <span>|</span>
+    <a href="{% url 'cadmin:render' emailkind_id=original.id %}" target="_blank">Render test</a>
+    {% elif original.model_name == 'EmailEntry' %}
+    <a href="{% url 'cadmin:attachs' emailentry_id=original.id %}">Attachments({{ original.attachments.count }})</a>
+    <span>|</span>
+    <a href="{% url 'cadmin:renderentry' emailentry_id=original.id version='html' %}" target="_blank">Render HTML</a>
+    <span>|</span>
+    <a href="{% url 'cadmin:renderentry' emailentry_id=original.id version='plain' %}" target="_blank">Render plain</a>
+    {% endif %}
+
+    {% if not original or original.model_name == 'EmailKind' %}
+    <span>|</span>
+    <a href="{% url 'cadmin:send' emailkind_id=original.id %}" target="_blank">Send test</a>
+    {% endif %}
+  </div>
+{% endif %}

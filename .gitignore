@@ -1,0 +1,15 @@
+*.sqlite
+*.sqlite3
+*.sqlite-journal
+*~
+
+# Compiled source #
+###################
+#
+#*.mo
+*.pyc
+
+static
+media
+
+.idea

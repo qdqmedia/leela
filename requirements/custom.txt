@@ -1,0 +1,2 @@
+-r prod.txt
+djrill==2.0

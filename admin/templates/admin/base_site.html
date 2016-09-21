@@ -1,0 +1,23 @@
+{% extends "admin/base.html" %}
+
+{% load staticfiles %}
+
+{% block extrahead %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/codemirror.css' %}" />
+  <script type="text/javascript" src="{% static 'js/codemirror.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/jinja2.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/xml.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/htmlmixed.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/editor.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+{% endblock %}
+
+{% block title %}{{ title }} | {{ site_title|default:'Email service admin' }}{% endblock %}
+
+{% block branding %}
+  <h1 id="site-name">
+    <a href="{% url 'admin:index' %}">Email Service</a>
+  </h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

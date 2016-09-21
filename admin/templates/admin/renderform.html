@@ -1,0 +1,37 @@
+{% extends "admin/base_site.html" %}
+
+{% block breadcrumbs %}
+  <div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">Home</a>
+    &rsaquo;
+    <a href="{% url 'admin:app_list' app_label='emails' %}">Emails</a>
+    &rsaquo;
+    {{ emailkind }}
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="content">
+    <h1>Render EmailKind</h1>
+    <div id="content-main">
+      <form action="{% url 'cadmin:render' emailkind_id=emailkind.id %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="emailkind_id" value="{{ emailkind.id }}">
+        <fieldset class="module aligned">
+          <h2>Rendering parameters</h2>
+          <div class="form-row field-test_context">
+            <div>
+              <label for="id_test_context">Test context:</label>
+              <textarea id="id_test_context" name="test_context"
+                        class="vLargeTextField" cols="40" rows="10"></textarea>
+            </div>
+          </div>
+        </fieldset>
+        <div class="submit-row">
+          <input type="submit" value="Render plain" name="operation">
+          <input type="submit" value="Render HTML" name="operation" class="default">
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

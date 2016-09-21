@@ -1,0 +1,49 @@
+{% extends "admin/base_site.html" %}
+
+{% block breadcrumbs %}
+  <div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">Home</a>
+    &rsaquo;
+    <a href="{% url 'admin:app_list' app_label='emails' %}">Emails</a>
+    &rsaquo;
+    {{ emailkind }}
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="content">
+    <h1>Send EmailKind (will generate a new EmailEntry)</h1>
+    <div id="content-main">
+      <form action="{% url 'cadmin:send' emailkind_id=emailkind.id %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="emailkind_id" value="{{ emailkind.id }}">
+        <fieldset class="module aligned">
+          <h2>Sending parameters</h2>
+          <div class="form-row field-test_params">
+            <div>
+              <label for="id_test_params">Test params:</label>
+              <textarea id="id_test_params" name="test_params"
+                        class="vLargeTextField" cols="40" rows="10">{
+    "sender": "from@qdqmedia.com",
+    "recipients": ["to@qdqmedia.com", "to2@qdqmedia.com", ...],
+    "reply_to": ["reply@qdqmedia.com", "reply2@qdqmedia.com", ...],
+    "customer_id": "3838383",
+    "subject": "This is the email subject",
+    "context": {"first_name": "Troll", ...},
+    "attachs": [{
+        "filename": "invoice.pdf",
+        "content_type": "application/pdf",
+        "content": "raw content of the file"
+    }, ...]
+}
+</textarea>
+            </div>
+          </div>
+        </fieldset>
+        <div class="submit-row">
+          <input type="submit" value="Send" name="operation" class="default">
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

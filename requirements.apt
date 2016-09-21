@@ -1,0 +1,8 @@
+python3.4
+python3.4-dev
+python3-pip
+libpq-dev
+git
+wget
+postgresql-client
+libffi-dev

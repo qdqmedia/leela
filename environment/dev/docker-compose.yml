@@ -1,0 +1,34 @@
+leela:
+  image: qdqmedia/leela
+  ports:
+    - "8005:8000"
+  volumes:
+    - ../../:/code
+    - ~/.gitconfig:/home/qdqmedia/.gitconfig:ro
+    - ~/.ssh:/home/qdqmedia/.ssh:ro
+  links:
+    - postgres:db
+    - rabbitmq:queue
+
+  dns_search:
+    - "indimedia.com"
+
+  hostname: leela-dev
+  command: "/bin/true"
+
+  environment:
+    DJANGO_SETTINGS_MODULE: leela.settings.dev
+  user: qdqmedia
+
+postgres:
+  image: postgres:9.4
+  ports:
+    - "5432:5432"
+  environment:
+    POSTGRES_PASSWORD: postgres
+
+rabbitmq:
+  image: rabbitmq:3.5.3-management
+  ports:
+    - "5672:5672"
+    - "15672:15672"
